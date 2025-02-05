@@ -396,7 +396,7 @@ export default function SuperbowlSquares({
 										onClick={() => handleSquareClick(row, column)}
 										className={cn(
 											'border-r border-b border-gray-300 transition-colors',
-											'hover:bg-gray-100',
+											'hover:bg-yellow-500',
 											isSelected && 'bg-yellow-500',
 											isPreSelected && 'bg-red-500 cursor-not-allowed'
 										)}
