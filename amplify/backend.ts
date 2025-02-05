@@ -34,14 +34,14 @@ const logGroup = new LogGroup(
 	customResources,
 	'wcc-stripeEventBridgeLogGroup',
 	{
-		logGroupName: '/aws/events/wcc-stripeEventBridgeLogGroup',
+		logGroupName: '/aws/events/wcc-stripeEventBridgeLogGroupMain',
 		retention: RetentionDays.ONE_MONTH,
 	}
 )
 
 // create an eventBridge Rule that calls our log group and our lambda function
 new Rule(customResources, 'stripeEventBridgeRule', {
-	ruleName: 'wcc-stripe-event-bridge-rule',
+	ruleName: 'wcc-stripe-event-bridge-ruleMain',
 	eventBus: stripeEventBus,
 	targets: [
 		new LambdaFunction(backend.wccEBWebhook.resources.lambda),
