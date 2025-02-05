@@ -1,7 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
-import { Trophy } from 'lucide-react'
+import { useState, useEffect, useCallback, useRef } from 'react'
+import { HelpCircle, Trophy } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -25,6 +26,8 @@ export default function SuperbowlSquares({
 }: {
 	showScoresAndTeams?: boolean
 }) {
+	const howToPlayRef = useRef<HTMLDivElement>(null)
+
 	const { toast } = useToast()
 	const [selectedSquares, setSelectedSquares] = useState<SelectedSquare[]>([])
 	const [preSelectedSquares, setPreSelectedSquares] = useState<
@@ -152,6 +155,10 @@ export default function SuperbowlSquares({
 	const handleTouchEnd = useCallback(() => {
 		setTouchedSquare(null)
 	}, [])
+
+	const scrollToHowToPlay = () => {
+		howToPlayRef.current?.scrollIntoView({ behavior: 'smooth' })
+	}
 
 	return (
 		<div className="min-h-screen bg-green-800 p-4 text-gray-900 relative overflow-hidden">
@@ -309,13 +316,23 @@ export default function SuperbowlSquares({
 
 					<div className="text-xl text-white">Total: ${totalAmount}</div>
 
-					<Button
-						variant="secondary"
-						className="bg-yellow-500 hover:bg-yellow-600 text-black"
-						onClick={handleCheckout}
-					>
-						Checkout ({selectedSquares.length} squares)
-					</Button>
+					<div className="flex justify-center space-x-4">
+						<Button
+							variant="secondary"
+							className="bg-yellow-500 hover:bg-yellow-600 text-black"
+							onClick={handleCheckout}
+						>
+							Checkout ({selectedSquares.length} squares)
+						</Button>
+						<Button
+							variant="outline"
+							className="bg-white hover:bg-gray-100 text-black"
+							onClick={scrollToHowToPlay}
+						>
+							<HelpCircle className="mr-2 h-4 w-4" />
+							How to Play
+						</Button>
+					</div>
 				</div>
 
 				<Tabs
@@ -424,6 +441,64 @@ export default function SuperbowlSquares({
 							})}
 						</div>
 					</div>
+				</div>
+				{/* How to Play Section */}
+				<div
+					ref={howToPlayRef}
+					className="mt-12 bg-white bg-opacity-90 p-6 rounded-lg shadow-lg"
+				>
+					<h2 className="text-2xl font-bold mb-4 text-gray-800">
+						How to Play Superbowl Squares 🔍
+					</h2>
+					<ol className="list-decimal list-inside space-y-2 text-gray-700">
+						<li>
+							Each square on the grid represents a possible score combination
+							between the two teams in the Superbowl.
+						</li>
+						<li>
+							The scores and the team names are hidden until the day of the
+							Superbowl.
+						</li>
+						<li>
+							The numbers that will run along the top represent the last digit
+							of team A's score.
+						</li>
+						<li>
+							The numbers that will run along the left side represent the last
+							digit team B's score.
+						</li>
+						<li>
+							Select up to 3 squares per quarter by clicking on them. Each
+							square costs $5.
+						</li>
+						<li>Your selected squares will be highlighted in yellow.</li>
+						<li>
+							Red squares have already been taken by other players. Clicking a
+							red square will show you who it belongs to.
+						</li>
+						<li>
+							At the end of each quarter, the winner is determined by matching
+							the last digit of each team's score to the grid.
+						</li>
+						<li className="font-bold">
+							For example, if the score is Chiefs 17, Eagles 13 at the end of a
+							quarter, the winning square would be where 7 (Chiefs) and 3
+							(Eagles) intersect.
+						</li>
+						<li>
+							Different prizes may be awarded for each quarter and the final
+							score.
+						</li>
+						<li>
+							Once you've selected your squares, click the "Checkout" button to
+							complete your purchase.The board will automatically update with
+							your selected squares.
+						</li>
+					</ol>
+					<p className="mt-4 text-gray-700">
+						Remember, the more squares you choose, the higher your chances of
+						winning. Good luck and enjoy the game! 🏈
+					</p>
 				</div>
 			</div>
 		</div>
