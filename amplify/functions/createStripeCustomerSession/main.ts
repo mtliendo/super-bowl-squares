@@ -11,7 +11,7 @@ export const handler: Handler = async (event) => {
 			payment_method_types: ['card'],
 			custom_fields: [
 				{
-					key: 'customer_name',
+					key: 'customer_name', //collect names since the person on the square could be different than the cardholder
 					optional: false,
 					label: {
 						type: 'custom',
