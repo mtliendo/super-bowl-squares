@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Trophy } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
@@ -31,6 +31,10 @@ export default function SuperbowlSquares({
 		Schema['SuperbowlSquare']['type'][]
 	>([])
 	const [currentQuarter, setCurrentQuarter] = useState('FIRST')
+	const [touchedSquare, setTouchedSquare] = useState<{
+		row: number
+		column: number
+	} | null>(null)
 
 	const chiefsNumbers = [4, 2, 1, 5, 0, 6, 9, 8, 7, 3]
 	const eaglesNumbers = [8, 0, 1, 2, 3, 9, 4, 6, 7, 5]
@@ -140,6 +144,14 @@ export default function SuperbowlSquares({
 			})
 		}
 	}
+
+	const handleTouchStart = useCallback((row: number, column: number) => {
+		setTouchedSquare({ row, column })
+	}, [])
+
+	const handleTouchEnd = useCallback(() => {
+		setTouchedSquare(null)
+	}, [])
 
 	return (
 		<div className="min-h-screen bg-green-800 p-4 text-gray-900 relative overflow-hidden">
@@ -394,11 +406,18 @@ export default function SuperbowlSquares({
 									<button
 										key={i}
 										onClick={() => handleSquareClick(row, column)}
+										onTouchStart={() => handleTouchStart(row, column)}
+										onTouchEnd={handleTouchEnd}
 										className={cn(
 											'border-r border-b border-gray-300 transition-colors',
-											'hover:bg-yellow-500',
+											'active:bg-yellow-200',
 											isSelected && 'bg-yellow-500',
-											isPreSelected && 'bg-red-500 cursor-not-allowed'
+											isPreSelected && 'bg-red-500 cursor-not-allowed',
+											touchedSquare?.row === row &&
+												touchedSquare?.column === column &&
+												!isPreSelected &&
+												'bg-yellow-200',
+											{ 'hover:bg-yellow-200': !isPreSelected && !isSelected }
 										)}
 									/>
 								)
