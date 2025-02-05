@@ -343,7 +343,7 @@ export default function SuperbowlSquares({
 					<TabsList className="grid grid-cols-4 w-full bg-white">
 						<TabsTrigger value="FIRST">1st</TabsTrigger>
 						<TabsTrigger value="SECOND">2nd</TabsTrigger>
-						<TabsTrigger value="THRID">3rd</TabsTrigger>
+						<TabsTrigger value="THIRD">3rd</TabsTrigger>
 						<TabsTrigger value="FOURTH">4th</TabsTrigger>
 					</TabsList>
 				</Tabs>
