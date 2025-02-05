@@ -1,5 +1,4 @@
 'use client'
-import Head from 'next/head'
 
 import { useState, useEffect, useCallback } from 'react'
 import { Trophy } from 'lucide-react'
@@ -156,24 +155,6 @@ export default function SuperbowlSquares({
 
 	return (
 		<>
-			<Head>
-				<title>Real-time Superbowl Squares</title>
-				<meta property="og:title" content="Real-time Superbowl Squares" />
-				<meta
-					property="og:description"
-					content="Get in the action and use checkout the fun!"
-				/>
-				<meta property="og:image" content="/og-image.png" />
-				<meta property="og:image:type" content="image/png" />
-				<meta property="og:image:width" content="1200" />
-				<meta property="og:image:height" content="630" />
-				<meta
-					property="og:url"
-					content="https://test.d178l466t4onmx.amplifyapp.com"
-				/>
-				<meta property="og:type" content="website" />
-			</Head>
-
 			<div className="min-h-screen bg-green-800 p-4 text-gray-900 relative overflow-hidden">
 				{/* Football field pattern SVG background */}
 				<div className="absolute inset-0" aria-hidden="true">
