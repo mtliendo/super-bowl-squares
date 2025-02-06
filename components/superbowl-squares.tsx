@@ -353,14 +353,14 @@ export default function SuperbowlSquares({
 						{showScoresAndTeams && (
 							<>
 								<div className="absolute -top-2 left-12 right-0 text-center font-bold text-white">
-									Kansas City Chiefs 🏈
+									Windsor Crest Club Meercats 🏈
 								</div>
 								<div className="absolute -left-5 lg:-left-8 top-12 bottom-4  flex items-center">
 									<span
 										className="rotate-180 whitespace-nowrap font-bold text-white"
 										style={{ writingMode: 'vertical-rl' }}
 									>
-										Philadelphia Eagles 🦅
+										Edgewild Badgers
 									</span>
 								</div>
 							</>
