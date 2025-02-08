@@ -5,7 +5,7 @@ export default function Home() {
 	return (
 		<Providers>
 			<SuperbowlSquares
-				showScoresAndTeams={true}
+				showScoresAndTeams={false}
 				topTeamName="Kansas City Chiefs 🏈"
 				sideTeamName="Philadelphia Eagles 🦅"
 				topTeamNumbers={[4, 2, 1, 5, 0, 6, 9, 8, 7, 3]}

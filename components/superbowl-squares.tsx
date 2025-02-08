@@ -520,64 +520,6 @@ export default function SuperbowlSquares({
 						</p>
 					</div>
 				</div>
-				{/* How to Play Section */}
-				<div
-					ref={howToPlayRef}
-					className="mt-12 bg-white bg-opacity-90 p-6 rounded-lg shadow-lg"
-				>
-					<h2 className="text-2xl font-bold mb-4 text-gray-800">
-						How to Play Superbowl Squares 🔍
-					</h2>
-					<ol className="list-decimal list-inside space-y-2 text-gray-700">
-						<li>
-							Each square on the grid represents a possible score combination
-							between the two teams in the Superbowl.
-						</li>
-						<li>
-							The scores and the team names are hidden until the day of the
-							Superbowl.
-						</li>
-						<li>
-							The numbers that will run along the top represent the last digit
-							of team A's score.
-						</li>
-						<li>
-							The numbers that will run along the left side represent the last
-							digit team B's score.
-						</li>
-						<li>
-							Select up to 3 squares per quarter by clicking on them. Each
-							square costs $5.
-						</li>
-						<li>Your selected squares will be highlighted in yellow.</li>
-						<li>
-							Red squares have already been taken by other players. Clicking a
-							red square will show you who it belongs to.
-						</li>
-						<li>
-							At the end of each quarter, the winner is determined by matching
-							the last digit of each team's score to the grid.
-						</li>
-						<li className="font-bold">
-							For example, if the score is Chiefs 17, Eagles 13 at the end of a
-							quarter, the winning square would be where 7 (Chiefs) and 3
-							(Eagles) intersect.
-						</li>
-						<li>
-							Different prizes may be awarded for each quarter and the final
-							score.
-						</li>
-						<li>
-							Once you've selected your squares, click the "Checkout" button to
-							complete your purchase.The board will automatically update with
-							your selected squares.
-						</li>
-					</ol>
-					<p className="mt-4 text-gray-700">
-						Remember, the more squares you choose, the higher your chances of
-						winning. Good luck and enjoy the game! 🏈
-					</p>
-				</div>
 			</div>
 		</>
 	)
