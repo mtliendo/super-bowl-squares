@@ -23,8 +23,16 @@ const client = generateClient<Schema>()
 
 export default function SuperbowlSquares({
 	showScoresAndTeams = false,
+	topTeamName = 'Kansas City Chiefs 🏈',
+	sideTeamName = 'Philadelphia Eagles 🦅',
+	topTeamNumbers = [4, 2, 1, 5, 0, 6, 9, 8, 7, 3],
+	sideTeamNumbers = [8, 0, 1, 2, 3, 9, 4, 6, 7, 5],
 }: {
 	showScoresAndTeams?: boolean
+	topTeamName?: string
+	sideTeamName?: string
+	topTeamNumbers?: number[]
+	sideTeamNumbers?: number[]
 }) {
 	const { toast } = useToast()
 	const howToPlayRef = useRef<HTMLDivElement>(null)
@@ -33,14 +41,13 @@ export default function SuperbowlSquares({
 	const [preSelectedSquares, setPreSelectedSquares] = useState<
 		Schema['SuperbowlSquare']['type'][]
 	>([])
-	const [currentQuarter, setCurrentQuarter] = useState('FIRST')
+	const [currentQuarter, setCurrentQuarter] = useState<
+		'FIRST' | 'SECOND' | 'THIRD' | 'FOURTH'
+	>('FIRST')
 	const [touchedSquare, setTouchedSquare] = useState<{
 		row: number
 		column: number
 	} | null>(null)
-
-	const chiefsNumbers = [4, 2, 1, 5, 0, 6, 9, 8, 7, 3]
-	const eaglesNumbers = [8, 0, 1, 2, 3, 9, 4, 6, 7, 5]
 
 	useEffect(() => {
 		const fetchPreSelectedSquares = async () => {
@@ -349,7 +356,11 @@ export default function SuperbowlSquares({
 					<Tabs
 						className="mb-4"
 						defaultValue="FIRST"
-						onValueChange={setCurrentQuarter}
+						onValueChange={(value) =>
+							setCurrentQuarter(
+								value as 'FIRST' | 'SECOND' | 'THIRD' | 'FOURTH'
+							)
+						}
 					>
 						<TabsList className="grid grid-cols-4 w-full bg-white">
 							<TabsTrigger value="FIRST">1st</TabsTrigger>
@@ -364,14 +375,14 @@ export default function SuperbowlSquares({
 						{showScoresAndTeams && (
 							<>
 								<div className="absolute -top-2 left-12 right-0 text-center font-bold text-white">
-									Windsor Crest Club Meercats 🏈
+									{topTeamName}
 								</div>
 								<div className="absolute -left-5 lg:-left-8 top-12 bottom-4  flex items-center">
 									<span
 										className="rotate-180 whitespace-nowrap font-bold text-white"
 										style={{ writingMode: 'vertical-rl' }}
 									>
-										Edgewild Badgers
+										{sideTeamName}
 									</span>
 								</div>
 							</>
@@ -382,7 +393,7 @@ export default function SuperbowlSquares({
 							{showScoresAndTeams && (
 								<>
 									<div className="absolute top-0 left-12 right-0 h-12 flex bg-gray-200">
-										{chiefsNumbers.map((num, i) => (
+										{topTeamNumbers.map((num, i) => (
 											<div
 												key={i}
 												className="flex-1 border-r border-gray-300 flex items-center justify-center"
@@ -393,7 +404,7 @@ export default function SuperbowlSquares({
 									</div>
 
 									<div className="absolute top-12 left-0 w-12 bottom-0 flex flex-col bg-gray-200">
-										{eaglesNumbers.map((num, i) => (
+										{sideTeamNumbers.map((num, i) => (
 											<div
 												key={i}
 												className="flex-1 border-b border-gray-300 flex items-center justify-center"
