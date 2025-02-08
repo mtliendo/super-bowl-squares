@@ -13,7 +13,7 @@ export const handler: Handler = async (event) => {
 	switch (event.detail.type) {
 		case 'checkout.session.completed':
 			const session = event.detail.data.object
-			//the session payload
+
 			const customFields = session.custom_fields
 			const customerNameField = customFields.find(
 				(field: { key: string }) => field.key === 'customer_name'
