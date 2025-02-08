@@ -123,6 +123,14 @@ export default function SuperbowlSquares({
 
 	const totalAmount = selectedSquares.length * 5
 
+	const getCurrentQuarterPotSize = () => {
+		const quarterSquares = preSelectedSquares.filter(
+			(square) => square.quarter === currentQuarter
+		).length
+		const potSize = (quarterSquares * 5) / 2
+		return potSize
+	}
+
 	const handleCheckout = async () => {
 		try {
 			const response = await client.mutations.createStripeCustomerSession({
@@ -316,6 +324,9 @@ export default function SuperbowlSquares({
 						</h1>
 
 						<div className="text-xl text-white">Total: ${totalAmount}</div>
+						<div className="text-lg text-white mb-4">
+							Current Quarter Pot Size: ${getCurrentQuarterPotSize()} / $250
+						</div>
 						<div className="flex justify-center space-x-4">
 							<Button
 								variant="secondary"
