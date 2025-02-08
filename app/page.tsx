@@ -4,7 +4,7 @@ import { Providers } from '@/components/toast'
 export default function Home() {
 	return (
 		<Providers>
-			<SuperbowlSquares showScoresAndTeams />
+			<SuperbowlSquares />
 		</Providers>
 	)
 }
