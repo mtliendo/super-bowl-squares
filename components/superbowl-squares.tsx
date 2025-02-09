@@ -76,15 +76,6 @@ export default function SuperbowlSquares({
 	}, [])
 
 	const handleSquareClick = (row: number, column: number) => {
-		if (disabledQuarters.includes(currentQuarter)) {
-			toast({
-				title: 'Quarter Locked',
-				description: 'This quarter is no longer accepting new selections',
-				variant: 'destructive',
-			})
-			return
-		}
-
 		const preSelected = preSelectedSquares.find(
 			(square) =>
 				square.row === row &&
@@ -96,6 +87,15 @@ export default function SuperbowlSquares({
 			toast({
 				title: 'Square already taken',
 				description: `This square is already taken by ${preSelected.name}`,
+				variant: 'destructive',
+			})
+			return
+		}
+
+		if (disabledQuarters.includes(currentQuarter)) {
+			toast({
+				title: 'Quarter Locked',
+				description: 'This quarter is no longer accepting new selections',
 				variant: 'destructive',
 			})
 			return
