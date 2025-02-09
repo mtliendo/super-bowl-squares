@@ -27,12 +27,14 @@ export default function SuperbowlSquares({
 	sideTeamName = 'Philadelphia Eagles 🦅',
 	topTeamNumbers = [4, 2, 1, 5, 0, 6, 9, 8, 7, 3],
 	sideTeamNumbers = [8, 0, 1, 2, 3, 9, 4, 6, 7, 5],
+	disabledQuarters = [],
 }: {
 	showScoresAndTeams?: boolean
 	topTeamName?: string
 	sideTeamName?: string
 	topTeamNumbers?: number[]
 	sideTeamNumbers?: number[]
+	disabledQuarters?: Array<'FIRST' | 'SECOND' | 'THIRD' | 'FOURTH'>
 }) {
 	const howToPlayRef = useRef<HTMLDivElement>(null)
 
@@ -74,6 +76,15 @@ export default function SuperbowlSquares({
 	}, [])
 
 	const handleSquareClick = (row: number, column: number) => {
+		if (disabledQuarters.includes(currentQuarter)) {
+			toast({
+				title: 'Quarter Locked',
+				description: 'This quarter is no longer accepting new selections',
+				variant: 'destructive',
+			})
+			return
+		}
+
 		const preSelected = preSelectedSquares.find(
 			(square) =>
 				square.row === row &&
@@ -336,13 +347,16 @@ export default function SuperbowlSquares({
 							Current Quarter Pot Size: ${getCurrentQuarterPotSize()} / $250
 						</div>
 						<div className="flex justify-center space-x-4">
-							<Button
-								variant="secondary"
-								className="bg-yellow-500 hover:bg-yellow-600 text-black"
-								onClick={handleCheckout}
-							>
-								Checkout ({selectedSquares.length} squares)
-							</Button>
+							{!disabledQuarters.includes(currentQuarter) &&
+								selectedSquares.length > 0 && (
+									<Button
+										variant="secondary"
+										className="bg-yellow-500 hover:bg-yellow-600 text-black"
+										onClick={handleCheckout}
+									>
+										Checkout ({selectedSquares.length} squares)
+									</Button>
+								)}
 							<Button
 								variant="outline"
 								className="bg-white hover:bg-gray-100 text-black"
@@ -364,10 +378,18 @@ export default function SuperbowlSquares({
 						}
 					>
 						<TabsList className="grid grid-cols-4 w-full bg-white">
-							<TabsTrigger value="FIRST">1st</TabsTrigger>
-							<TabsTrigger value="SECOND">2nd</TabsTrigger>
-							<TabsTrigger value="THIRD">3rd</TabsTrigger>
-							<TabsTrigger value="FOURTH">4th</TabsTrigger>
+							<TabsTrigger value="FIRST">
+								1st {disabledQuarters.includes('FIRST') && '🔒'}
+							</TabsTrigger>
+							<TabsTrigger value="SECOND">
+								2nd {disabledQuarters.includes('SECOND') && '🔒'}
+							</TabsTrigger>
+							<TabsTrigger value="THIRD">
+								3rd {disabledQuarters.includes('THIRD') && '🔒'}
+							</TabsTrigger>
+							<TabsTrigger value="FOURTH">
+								4th {disabledQuarters.includes('FOURTH') && '🔒'}
+							</TabsTrigger>
 						</TabsList>
 					</Tabs>
 
@@ -457,7 +479,12 @@ export default function SuperbowlSquares({
 													touchedSquare?.column === column &&
 													!isPreSelected &&
 													'bg-yellow-200',
-												{ 'hover:bg-yellow-200': !isPreSelected && !isSelected }
+												{
+													'hover:bg-yellow-200':
+														!isPreSelected &&
+														!isSelected &&
+														!disabledQuarters.includes(currentQuarter),
+												}
 											)}
 										/>
 									)
